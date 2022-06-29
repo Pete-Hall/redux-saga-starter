@@ -8,12 +8,15 @@ function App() {
   const [newElement, setNewElement] = useState('');
 
   const getElements = () => {
-    axios.get('/api/element').then(response => {
-      dispatch({ type: 'SET_ELEMENTS', payload: response.data });
-    })
-      .catch(error => {
-        console.log('error with element get request', error);
-      });
+    // axios.get('/api/element').then(response => {
+    //   dispatch({ type: 'SET_ELEMENTS', payload: response.data });
+    // })
+    //   .catch(error => {
+    //     console.log('error with element get request', error);
+    //   });
+    
+    // watcher saga looks for dispatch action types
+    dispatch({type: 'GET_ELEMENTS', payload: 'hello world saga'});
   }
 
   useEffect(() => {
