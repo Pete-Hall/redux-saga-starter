@@ -17,7 +17,7 @@ function App() {
     //   });
     
     // watcher saga looks for dispatch action types
-    dispatch({type: 'GET_ELEMENTS', paylaod: 'hello world saga'});
+    dispatch({type: 'GET_ELEMENTS', payload: 'hello world saga'});
     dispatch({type: 'GET_SHIPS'});
   }
 
