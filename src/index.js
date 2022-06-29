@@ -19,11 +19,20 @@ const elementList = (state = [], action) => {
     }
 };    
 
+const ships = (state = [], action) => {
+    if(action.type === 'SET_SHIPS') {
+        return action.payload;
+    }
+    return state;
+}
+
 // this is the saga that will watch for actions
 function* watcherSaga() { // aka the "rootSaga". our saga's receive dispatches but only for the ones it's watching. * for asynch. generator function can use yield
     yield takeEvery('GET_ELEMENTS', getElements); // when we receive a type of 'GET_ELEMENTS, run this function getElements. kind of like conditional in a reducer. 'yield every time you get an action of 'GET_ELEMENTS, and when you do, run getElements.
+    yield takeEvery('GET_SHIPS', getShips);
 }
 
+// sagas use function syntax with *. reducers use arrow function
 function* getElements() {
     try{
         // get call for our data
@@ -37,6 +46,17 @@ function* getElements() {
     }
 }
 
+function* getShips() {
+    try{
+        const response = yield axios.get('https://swapi.dev/api/starships');
+        yield put({type: 'SET_SHIPS', payload: response.data});
+
+    }catch(err) {
+        console.log(err);
+        alert('nope');
+    }
+}
+
 const sagaMiddleware = createSagaMiddleware();
 
 // This is creating the store
@@ -46,6 +66,7 @@ const storeInstance = createStore(
     // reducer is a function that runs every time an action is dispatched
     combineReducers({
         elementList,
+        ships
     }),
     applyMiddleware(sagaMiddleware, logger),
 );

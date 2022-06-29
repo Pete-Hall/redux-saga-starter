@@ -5,6 +5,7 @@ import axios from 'axios';
 function App() {
   const dispatch = useDispatch();
   const elements = useSelector(store => store.elementList)
+  const ships = useSelector(store => store.ships)
   const [newElement, setNewElement] = useState('');
 
   const getElements = () => {
@@ -16,7 +17,8 @@ function App() {
     //   });
     
     // watcher saga looks for dispatch action types
-    dispatch({type: 'GET_ELEMENTS', payload: 'hello world saga'});
+    dispatch({type: 'GET_ELEMENTS', paylaod: 'hello world saga'});
+    dispatch({type: 'GET_SHIPS'});
   }
 
   useEffect(() => {
@@ -41,7 +43,7 @@ function App() {
   return (
     <div>
       <h1>Atomic Elements</h1>
-
+      <h3>{JSON.stringify(ships)}</h3>
       <ul>
         {elements.map(element => (
           <li key={element}>
