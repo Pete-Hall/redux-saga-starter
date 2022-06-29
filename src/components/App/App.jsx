@@ -26,17 +26,19 @@ function App() {
   }, []);
 
   const addElement = () => {
-    axios.post('/api/element', { 
-      name: newElement
-    })
-      .then(() => {
-        getElements();
-        setNewElement('');
-      })
-      .catch(error => {
-        console.log('error with element get request', error);
-      });
-
+    // axios.post('/api/element', { 
+    //   name: newElement
+    // })
+    //   .then(() => {
+    //     getElements();
+    //     setNewElement('');
+    //   })
+    //   .catch(error => {
+    //     console.log('error with element get request', error);
+    //   });
+    dispatch({type: 'ADD_ELEMENT', payload: newElement});
+    getElements();
+    setNewElement('');
   }
 
 
@@ -45,7 +47,7 @@ function App() {
       <h1>Atomic Elements</h1>
       <h3>{JSON.stringify(ships)}</h3>
       <ul>
-        {elements.map(element => (
+        {elements.map(element => ( // add i or index to make the key unique
           <li key={element}>
             {element}
           </li>

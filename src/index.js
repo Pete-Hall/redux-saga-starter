@@ -30,6 +30,18 @@ const ships = (state = [], action) => {
 function* watcherSaga() { // aka the "rootSaga". our saga's receive dispatches but only for the ones it's watching. * for asynch. generator function can use yield
     yield takeEvery('GET_ELEMENTS', getElements); // when we receive a type of 'GET_ELEMENTS, run this function getElements. kind of like conditional in a reducer. 'yield every time you get an action of 'GET_ELEMENTS, and when you do, run getElements.
     yield takeEvery('GET_SHIPS', getShips);
+    yield takeEvery('ADD_ELEMENT', addElements);
+}
+
+function* addElements(action) {
+    console.log('in addElements:', action);
+    try{
+        const response = yield axios.post('/api/element', {name: action.payload});
+        console.log(response);
+    }catch(err) {
+        console.log(err);
+        alert('not today');
+    }
 }
 
 // sagas use function syntax with *. reducers use arrow function
